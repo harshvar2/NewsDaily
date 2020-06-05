@@ -3,11 +3,13 @@ package com.harsh.application.newsdaily;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.FileDescriptor;
@@ -36,7 +38,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
        LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(0, null, this);
 
+        newsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+                NewsData current = mAdapter.getItem(position);
+
+                Uri news_Uri = Uri.parse(current.getWebURL());
+
+                Intent website = new Intent(Intent.ACTION_VIEW, news_Uri);
+                startActivity(website);
+            }
+        });
 
 
     }
