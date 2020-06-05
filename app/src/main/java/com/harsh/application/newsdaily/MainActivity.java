@@ -58,14 +58,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     @Override
-    public void onLoadFinished(Loader<List<NewsData>> loader, List<NewsData> earthquakes) {
+    public void onLoadFinished(Loader<List<NewsData>> loader, List<NewsData> newsData) {
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
 
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
-        if (earthquakes != null && !earthquakes.isEmpty()) {
-            mAdapter.addAll(earthquakes);
+        if (newsData != null && !newsData.isEmpty()) {
+            mAdapter.addAll(newsData);
         }
     }
 
