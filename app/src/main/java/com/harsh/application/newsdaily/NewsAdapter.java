@@ -1,11 +1,11 @@
 package com.harsh.application.newsdaily;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,6 +17,7 @@ public class NewsAdapter extends ArrayAdapter<NewsData> {
         super(context, 0, arrayList);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if there is an existing list item view (called convertView) that we can reuse,
@@ -33,7 +34,8 @@ public class NewsAdapter extends ArrayAdapter<NewsData> {
         NewsData currentData = getItem(position);
 
         //Find the textview with id Title
-        TextView titleview = listItemView.findViewById(R.id.sectionName);
+        TextView titleview = listItemView.findViewById(R.id.title);
+        assert currentData != null;
         titleview.setText(currentData.getTitle());
 
         TextView sectionNameView = listItemView.findViewById(R.id.sectionName);

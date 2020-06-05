@@ -19,12 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class QueryUtils {
-    public static final String LOG_TAG = MainActivity.class.getName();
-
+    private static String LOG_TAG = "Test-Case-Error-generated";
+    private static String LOG_TAG_output = "Test-Case-Output-generated";
     /**
      * Sample JSON response for a USGS query
      */
-    private static final String newsJSON = "http://newsapi.org/v2/top-headlines?country=in&apiKey=0a85e88440d543b6ab2adb907c7613dd";
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -59,19 +58,39 @@ public final class QueryUtils {
 
             JSONArray newsArray = baseJsonResponse.getJSONArray("articles");
 
-            for (int i = 0; i < newsJSON.length(); i++) {
+            for (int i = 0; i < newsArray.length(); i++) {
 
-                JSONObject currentnews = newsArray.getJSONObject(i);
+                JSONObject articles = newsArray.getJSONObject(i);
 
-                JSONObject articles = currentnews.getJSONObject("articles");
 
                 String title = articles.getString("title");
 
                 String Description = articles.getString("description");
 
+                String webUrl = articles.getString("url");
 
 
-                NewsData newsData = new NewsData(title,Description);
+
+                String sectionName = articles.getString("content");
+
+
+                String MergeDate = articles.optString("publishedAt");
+                String[] dateTime = MergeDate.split("T");
+                String date = dateTime[0];
+                String time = dateTime[1];
+                time = time.substring(0, 5);
+
+
+
+                String author = articles.getString("author");
+
+                Log.i(LOG_TAG_output, time);
+                Log.i(LOG_TAG_output, date);
+                Log.i(LOG_TAG_output, title);
+                Log.i(LOG_TAG_output, webUrl);
+                Log.i(LOG_TAG_output, author);
+                Log.i(LOG_TAG_output, sectionName);
+                NewsData newsData = new NewsData(title, webUrl, sectionName, date, time, author);
                 arrayList.add(newsData);
 
 
