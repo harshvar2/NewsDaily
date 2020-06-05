@@ -1,6 +1,6 @@
 # NewsDaily
 
-Main Screen
+NewsDaily 
 App contains a main screen which displays multiple news stories
 
 
