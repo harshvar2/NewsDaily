@@ -1,42 +1,58 @@
 package com.harsh.application.newsdaily;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsData>>{
 
     /** Adapter for the list of earthquakes */
     private NewsAdapter mAdapter;
+    private ListView newsView;
+    private TextView eTextView;
 
     private static final String REQUEST_URL = "https://content.guardianapis.com/search";
     
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        ListView newsView=(ListView)findViewById(R.id.list_view);
+        eTextView = findViewById(R.id.empty);
+
+        ListView newsView= findViewById(R.id.list_view);
         mAdapter=new NewsAdapter(this, new ArrayList<NewsData>());
         newsView.setAdapter(mAdapter);
+        newsView.setEmptyView(eTextView);
+          ConnectivityManager CM = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert CM != null;
+        NetworkInfo NI=CM.getActiveNetworkInfo();
+        if (NI != null && NI.isConnected()) {
+            LoaderManager loaderManager = getLoaderManager();
+            loaderManager.initLoader(0, null, this);
 
+        } else {
 
-       LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(0, null, this);
+            eTextView.setText("No Internet Connection");
+        }
 
         newsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -44,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 NewsData current = mAdapter.getItem(position);
 
+                assert current != null;
                 Uri news_Uri = Uri.parse(current.getWebURL());
 
                 Intent website = new Intent(Intent.ACTION_VIEW, news_Uri);
@@ -73,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(Loader<List<NewsData>> loader, List<NewsData> newsData) {
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
-
+        eTextView.setText("No News found");
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (newsData != null && !newsData.isEmpty()) {

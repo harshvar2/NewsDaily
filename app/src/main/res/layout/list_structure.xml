@@ -8,12 +8,16 @@
     android:paddingRight="16dp">
 
 
+
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:orientation="vertical">
+
+
 
         <TextView
             android:id="@+id/sectionName"
@@ -26,6 +30,14 @@
             android:textColor="#B4BAC0"
             android:textSize="12sp"
             tools:text="World news" />
+        <!-- A CardView that contains a TextView -->
+        <androidx.cardview.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="4dp">
 
         <TextView
             android:id="@+id/title"
@@ -36,17 +48,17 @@
             android:textColor="#2B3D4D"
             android:textSize="16sp"
             tools:text="France debates law to let leans and single women have IVF" />
-
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/author"
             android:layout_width="wrap_content"
@@ -76,4 +88,6 @@
 
 
     </LinearLayout>
+
+
 </LinearLayout>

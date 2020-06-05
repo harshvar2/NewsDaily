@@ -21,7 +21,8 @@
         android:gravity="center"
         android:textSize="32sp"
         tools:text="No New Found" />
-    
+
+
 
 
 </RelativeLayout>

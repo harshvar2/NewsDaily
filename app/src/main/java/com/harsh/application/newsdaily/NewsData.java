@@ -7,16 +7,14 @@ public class NewsData {
     private String mWebURL;
     private String mDate;
     private String mTime;
-    private String mAuthor;
 
-    public NewsData(String title, String webUrl, String sectionName, String date, String time, String author) {
+    public NewsData(String title, String webUrl, String sectionName, String date, String timer) {
 
         mWebURL = webUrl;
         mTitle = title;
         mSectionName = sectionName;
         mDate = date;
-        mTime = time;
-        mAuthor = author;
+        mTime = timer;
 
     }
 
@@ -40,8 +38,4 @@ public class NewsData {
         return mTime;
     }
 
-    public String getAuthor() {
-        return mAuthor;
-
-    }
 }

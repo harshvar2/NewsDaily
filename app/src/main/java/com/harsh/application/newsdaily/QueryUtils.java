@@ -82,15 +82,12 @@ public final class QueryUtils {
 
 
 
-                String author = articles.getString("sectionId");
-
                 Log.i(LOG_TAG_output, time);
                 Log.i(LOG_TAG_output, date);
                 Log.i(LOG_TAG_output, title);
                 Log.i(LOG_TAG_output, webUrl);
-                Log.i(LOG_TAG_output, author);
                 Log.i(LOG_TAG_output, sectionName);
-                NewsData newsData = new NewsData(title, webUrl, sectionName, date, time, author);
+                NewsData newsData = new NewsData(title, webUrl, sectionName, date, time);
                 arrayList.add(newsData);
 
 
