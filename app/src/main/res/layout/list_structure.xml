@@ -71,7 +71,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textColor="#B4BAC0"
-
             android:textSize="12sp"
             tools:text="16:11" />
 

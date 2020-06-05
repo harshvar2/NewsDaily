@@ -16,14 +16,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class QueryUtils {
-    public static final String LOG_TAG = EarthquakeActivity.class.getName();
+    public static final String LOG_TAG = MainActivity.class.getName();
 
     /**
      * Sample JSON response for a USGS query
      */
-    private static final String earthquakeJSON = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    private static final String newsJSON = "http://newsapi.org/v2/top-headlines?country=in&apiKey=0a85e88440d543b6ab2adb907c7613dd";
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -34,62 +35,60 @@ public final class QueryUtils {
     }
 
     /**
-     * Return a list of {@link EQData} objects that has been built up from
+     * Return a list of {@link NewsData} objects that has been built up from
      * parsing a JSON response.
      */
-    public static ArrayList<EQData> extractFeatureFromJson(String earthquakeJSON) {
+    public static List<NewsData> extractFeatureFromJson(String newsJSON) {
+
+
 
 
         // If the JSON string is empty or null, then return early.
-        if (TextUtils.isEmpty(earthquakeJSON)) {
+        if (TextUtils.isEmpty(newsJSON)) {
             return null;
         }
         // Create an empty ArrayList that we can start adding earthquakes to
-        List<EQData> earthquakes = new ArrayList<>();
+        List<NewsData> arrayList = new ArrayList<NewsData>();
 
 
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
-            JSONObject baseJsonResponse = new JSONObject(earthquakeJSON);
+            JSONObject baseJsonResponse = new JSONObject(newsJSON);
 
-            JSONArray earthquakeArray = baseJsonResponse.getJSONArray("features");
+            JSONArray newsArray = baseJsonResponse.getJSONArray("articles");
 
-            for (int i = 0; i < earthquakeArray.length(); i++) {
+            for (int i = 0; i < newsJSON.length(); i++) {
 
-                JSONObject currentEarthquake = earthquakeArray.getJSONObject(i);
+                JSONObject currentnews = newsArray.getJSONObject(i);
 
-                JSONObject properties = currentEarthquake.getJSONObject("properties");
+                JSONObject articles = currentnews.getJSONObject("articles");
 
-                double magnitude = properties.getDouble("mag");
+                String title = articles.getString("title");
 
-                String location = properties.getString("place");
+                String Description = articles.getString("description");
 
-                long time = properties.getLong("time");
-                String url = properties.getString("url");
 
-                EQData earthquake = new EQData(magnitude, location, time, url);
-                earthquakes.add(earthquake);
+
+                NewsData newsData = new NewsData(title,Description);
+                arrayList.add(newsData);
 
 
             }
-
-            // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
-            // build up a list of Earthquake objects with the corresponding data.
 
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the newsAPI JSON results", e);
         }
 
-        // Return the list of earthquakes
-        return (ArrayList<EQData>) earthquakes;
+        // Return the list of newsData
+        return arrayList;
     }
 
-    public static List<EQData> fetchEarthquakeData(String requestUrl) {
+    public static List<NewsData> fetchEarthquakeData(String requestUrl) {
         //Create url object
         URL url = createUrl(requestUrl);
 
@@ -105,7 +104,7 @@ public final class QueryUtils {
 
         //Extract relavant fields from the JSON and create a list
 
-        List<EQData> earthquakes = extractFeatureFromJson(jsonResponse);
+        List<NewsData> earthquakes = extractFeatureFromJson(jsonResponse);
 
         //REturn the list of earthquakes
 
