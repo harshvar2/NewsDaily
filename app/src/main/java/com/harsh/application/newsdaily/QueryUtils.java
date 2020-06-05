@@ -55,26 +55,26 @@ public final class QueryUtils {
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
-
-            JSONArray newsArray = baseJsonResponse.getJSONArray("articles");
+            JSONObject response=baseJsonResponse.getJSONObject("response");
+            JSONArray newsArray = response.getJSONArray("results");
 
             for (int i = 0; i < newsArray.length(); i++) {
 
                 JSONObject articles = newsArray.getJSONObject(i);
 
 
-                String title = articles.getString("title");
+                String title = articles.getString("webTitle");
 
-                String Description = articles.getString("description");
+                String Description = articles.getString("type");
 
-                String webUrl = articles.getString("url");
-
-
-
-                String sectionName = articles.getString("content");
+                String webUrl = articles.getString("webUrl");
 
 
-                String MergeDate = articles.optString("publishedAt");
+
+                String sectionName = articles.getString("sectionName");
+
+
+                String MergeDate = articles.optString("webPublicationDate");
                 String[] dateTime = MergeDate.split("T");
                 String date = dateTime[0];
                 String time = dateTime[1];
@@ -82,7 +82,7 @@ public final class QueryUtils {
 
 
 
-                String author = articles.getString("author");
+                String author = articles.getString("sectionId");
 
                 Log.i(LOG_TAG_output, time);
                 Log.i(LOG_TAG_output, date);

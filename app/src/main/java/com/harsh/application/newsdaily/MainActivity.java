@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /** Adapter for the list of earthquakes */
     private NewsAdapter mAdapter;
 
-    private static final String REQUEST_URL = "https://newsapi.org/v2/top-headlines?country=in&apiKey=0a85e88440d543b6ab2adb907c7613dd";
+    private static final String REQUEST_URL = "https://content.guardianapis.com/search";
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         Uri.Builder uriBuilder = base.buildUpon();
 
-        uriBuilder.appendQueryParameter("show-tags", "contributor");
-        uriBuilder.appendQueryParameter("api-key", "test");
+        uriBuilder.appendQueryParameter("api-key", "7f37f7be-1583-4af0-bfae-59e10d9dbab8");
 
         return new NewsLoader(this, uriBuilder.toString());
     }
