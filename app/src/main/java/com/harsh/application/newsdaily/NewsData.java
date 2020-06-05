@@ -3,21 +3,45 @@ package com.harsh.application.newsdaily;
 public class NewsData {
 
     private String mTitle;
-    private String mDescription;
+    private String mSectionName;
+    private String mWebURL;
+    private String mDate;
+    private String mTime;
+    private String mAuthor;
 
-    public NewsData(String title,String Description){
+    public NewsData(String title, String webUrl, String sectionName, String date, String time, String author) {
 
-        mDescription=Description;
-        mTitle=title;
+        mWebURL = webUrl;
+        mTitle = title;
+        mSectionName = sectionName;
+        mDate = date;
+        mTime = time;
+        mAuthor = author;
 
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return mTitle;
     }
-    public String getDescription(){
-        return mDescription;
+
+    public String getSectionName() {
+        return mSectionName;
     }
 
+    public String getWebURL() {
+        return mWebURL;
+    }
 
+    public String getDate() {
+        return mDate;
+    }
+
+    public String getTime() {
+        return mTime;
+    }
+
+    public String getAuthor() {
+        return mAuthor;
+
+    }
 }
